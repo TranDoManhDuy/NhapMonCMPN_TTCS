@@ -1,13 +1,15 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package InterfaceDAO;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author Admin
  */
-public class InterfaceDAO {
-    
+public interface InterfaceDAO<T> {
+    public ArrayList<T> getList();
 }
