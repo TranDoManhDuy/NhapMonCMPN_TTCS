@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
-
 /**
  *
  * @author manhh
@@ -25,7 +24,6 @@ public class TypeService {
 
     public TypeService() {
     }
-    
     
     public int getType_service_id() {
         return type_service_id;

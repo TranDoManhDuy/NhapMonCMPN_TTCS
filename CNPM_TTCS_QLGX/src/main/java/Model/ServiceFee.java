@@ -5,7 +5,6 @@
 package Model;
 
 import java.time.LocalDate;
-
 /**
  *
  * @author manhh
@@ -67,6 +66,4 @@ public class ServiceFee {
     public void setIs_active(boolean is_active) {
         this.is_active = is_active;
     }
-    
-    
 }

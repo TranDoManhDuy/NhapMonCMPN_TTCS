@@ -12,15 +12,15 @@ import java.time.LocalDate;
  */
 public class Regisatration {
     private int customer_id;
-    private int registration_id;
+    private int regisatration_id;
     private LocalDate registration_date;
     private int vehicle_id;
     private char state;
 
-    public Regisatration(int customer_id, int registration_id, LocalDate registration_date, int vehicle_id, char state) {
+    public Regisatration(int customer_id, int regisatration_id, LocalDate regisatration_date, int vehicle_id, char state) {
         this.customer_id = customer_id;
-        this.registration_id = registration_id;
-        this.registration_date = registration_date;
+        this.regisatration_id = regisatration_id;
+        this.registration_date = regisatration_date;
         this.vehicle_id = vehicle_id;
         this.state = state;
     }
@@ -37,11 +37,11 @@ public class Regisatration {
     }
 
     public int getRegistration_id() {
-        return registration_id;
+        return regisatration_id;
     }
 
     public void setRegistration_id(int registration_id) {
-        this.registration_id = registration_id;
+        this.regisatration_id = registration_id;
     }
 
     public LocalDate getRegistration_date() {
