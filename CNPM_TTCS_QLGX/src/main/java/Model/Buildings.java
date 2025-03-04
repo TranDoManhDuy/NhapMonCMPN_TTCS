@@ -16,12 +16,17 @@ public class Buildings {
     public Buildings() {
     }
 
+    public Buildings( String building_name, String address) {
+        this.building_name = building_name;
+        this.address = address;
+    }
+
     public Buildings(int building_id, String building_name, String address) {
         this.building_id = building_id;
         this.building_name = building_name;
         this.address = address;
     }
-
+    
     public String getAddress() {
         return address;
     }

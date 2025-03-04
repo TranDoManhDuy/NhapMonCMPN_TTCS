@@ -43,15 +43,14 @@ public class TasksDAO {
     }
 
     public boolean insert(Tasks task) {
-        String sql = "INSERT INTO tasks (task_id, task_name, task_desc) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tasks (task_name, task_desc) VALUES (?, ?)";
         
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, task.getTask_id());
-            ptmt.setString(2, task.getTask_name());
-            ptmt.setString(3, task.getTask_desc());
+            ptmt.setString(1, task.getTask_name());
+            ptmt.setString(2, task.getTask_desc());
 
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {

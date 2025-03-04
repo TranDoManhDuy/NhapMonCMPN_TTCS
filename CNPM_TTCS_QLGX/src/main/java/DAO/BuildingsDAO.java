@@ -39,14 +39,13 @@ public class BuildingsDAO {
     }
     
     public boolean insert(Buildings bd){
-        String sql = "INSERT INTO buildings (building_id, building_name, address) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO buildings (building_name, address) VALUES (?, ?)";
         try(
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ){
-            ptmt.setInt(1, bd.getBuilding_id());
-            ptmt.setString(2, bd.getBuilding_name());
-            ptmt.setString(3, bd.getAddress());
+            ptmt.setString(1, bd.getBuilding_name());
+            ptmt.setString(2, bd.getAddress());
             
             return ptmt.executeUpdate() > 0;
         }catch (Exception e) {
@@ -56,14 +55,14 @@ public class BuildingsDAO {
     }
     
     public boolean update(Buildings bd){
-        String sql = "UPDATE buildings SET building_id = ?, building_name = ?, address = ? ";
+        String sql = " UPDATE buildings SET building_name = ?, address = ? WHERE building_id = ?";
         try(
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ){
-            ptmt.setInt(1, bd.getBuilding_id());
-            ptmt.setString(2, bd.getBuilding_name());
-            ptmt.setString(3, bd.getAddress());
+            ptmt.setInt(3, bd.getBuilding_id());
+            ptmt.setString(1, bd.getBuilding_name());
+            ptmt.setString(2, bd.getAddress());
             
             return ptmt.executeUpdate() > 0;
         }catch (Exception e) {
@@ -106,4 +105,5 @@ public class BuildingsDAO {
         }
         return null;
     }
+
 }

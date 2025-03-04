@@ -45,16 +45,15 @@ public class ShiftTypesDAO {
     }
 
     public boolean insert(ShiftTypes shiftType) {
-        String sql = "INSERT INTO shift_types (shift_type_id, shift_type_name, start_time, start_end) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO shift_types ( shift_type_name, start_time, start_end) VALUES (?, ?, ?)";
         
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, shiftType.getShift_type_id());
-            ptmt.setString(2, shiftType.getShift_type_name());
-            ptmt.setTime(3, Time.valueOf(shiftType.getStart_time()));
-            ptmt.setTime(4, Time.valueOf(shiftType.getStart_end()));
+            ptmt.setString(1, shiftType.getShift_type_name());
+            ptmt.setTime(2, Time.valueOf(shiftType.getStart_time()));
+            ptmt.setTime(3, Time.valueOf(shiftType.getStart_end()));
 
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {

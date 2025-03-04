@@ -40,14 +40,13 @@ public class LostVisitorParkingCardsDAO {
     }
 
     public boolean insert(LostVisitorParkingCards lostCard) {
-        String sql = "INSERT INTO lost_visitor_parking_cards (lost_visitor_parking_card_id, parking_session_id) VALUES (?, ?)";
+        String sql = "INSERT INTO lost_visitor_parking_cards (parking_session_id) VALUES (?)";
 
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, lostCard.getLost_visitor_parking_card_id());
-            ptmt.setInt(2, lostCard.getParking_session_id());
+            ptmt.setInt(1, lostCard.getParking_session_id());
 
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {

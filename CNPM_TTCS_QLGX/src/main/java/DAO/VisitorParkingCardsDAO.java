@@ -42,14 +42,13 @@ public class VisitorParkingCardsDAO {
     }
 
     public boolean insert(VisitorParkingCards card) {
-        String sql = "INSERT INTO visitor_parking_cards (visitor_parking_card_id, is_active) VALUES (?, ?)";
+        String sql = "INSERT INTO visitor_parking_cards (is_active) VALUES (?)";
         
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, card.getVisitor_parking_card_id());
-            ptmt.setBoolean(2, card.isIs_active());
+            ptmt.setBoolean(1, card.isIs_active());
 
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {

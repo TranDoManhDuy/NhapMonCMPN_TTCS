@@ -20,6 +20,12 @@ public class ShiftTypes {
         
     }
     
+    public ShiftTypes(String shift_type_name, LocalTime start_time, LocalTime start_end) {
+        this.shift_type_name = shift_type_name;
+        this.start_time = start_time;
+        this.start_end = start_end;
+    }
+
     public ShiftTypes(int shift_type_id, String shift_type_name, LocalTime start_time, LocalTime start_end) {
         this.shift_type_id = shift_type_id;
         this.shift_type_name = shift_type_name;
@@ -27,6 +33,7 @@ public class ShiftTypes {
         this.start_end = start_end;
     }
 
+    
     public int getShift_type_id() {
         return shift_type_id;
     }

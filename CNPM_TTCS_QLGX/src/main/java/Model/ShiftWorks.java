@@ -21,6 +21,14 @@ public class ShiftWorks {
     public ShiftWorks() {
     }
 
+    public ShiftWorks(int shift_type_id, int building_id, int staff_id, int task_id, LocalTime shift_date) {
+        this.shift_type_id = shift_type_id;
+        this.building_id = building_id;
+        this.staff_id = staff_id;
+        this.task_id = task_id;
+        this.shift_date = shift_date;
+    }
+
     public ShiftWorks(int shift_work_id, int shift_type_id, int building_id, int staff_id, int task_id, LocalTime shift_date) {
         this.shift_work_id = shift_work_id;
         this.shift_type_id = shift_type_id;
@@ -30,6 +38,7 @@ public class ShiftWorks {
         this.shift_date = shift_date;
     }
 
+    
     public int getShift_work_id() {
         return shift_work_id;
     }

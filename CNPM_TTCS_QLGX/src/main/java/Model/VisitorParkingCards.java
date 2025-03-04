@@ -15,6 +15,10 @@ public class VisitorParkingCards {
     public VisitorParkingCards() {
     }
 
+    public VisitorParkingCards(boolean is_active) {
+        this.is_active = is_active;
+    }
+
     public VisitorParkingCards(int visitor_parking_card_id, boolean is_active) {
         this.visitor_parking_card_id = visitor_parking_card_id;
         this.is_active = is_active;

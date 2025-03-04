@@ -16,6 +16,11 @@ public class Tasks {
     public Tasks() {
     }
 
+    public Tasks( String task_name, String task_desc) {
+        this.task_name = task_name;
+        this.task_desc = task_desc;
+    }
+
     public Tasks(int task_id, String task_name, String task_desc) {
         this.task_id = task_id;
         this.task_name = task_name;

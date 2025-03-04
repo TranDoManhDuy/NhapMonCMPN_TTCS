@@ -49,18 +49,17 @@ public class ShiftWorksDAO {
     }
 
     public boolean insert(ShiftWorks shift) {
-        String sql = "INSERT INTO shift_works (shift_work_id, shift_type_id, building_id, staff_id, task_id, shift_date) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO shift_works (shift_type_id, building_id, staff_id, task_id, shift_date) VALUES (?, ?, ?, ?, ?)";
         
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, shift.getShift_work_id());
-            ptmt.setInt(2, shift.getShift_type_id());
-            ptmt.setInt(3, shift.getBuilding_id());
-            ptmt.setInt(4, shift.getStaff_id());
-            ptmt.setInt(5, shift.getTask_id());
-            ptmt.setTime(6, Time.valueOf(shift.getShift_date()));
+            ptmt.setInt(1, shift.getShift_type_id());
+            ptmt.setInt(2, shift.getBuilding_id());
+            ptmt.setInt(3, shift.getStaff_id());
+            ptmt.setInt(4, shift.getTask_id());
+            ptmt.setTime(5, Time.valueOf(shift.getShift_date()));
 
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {

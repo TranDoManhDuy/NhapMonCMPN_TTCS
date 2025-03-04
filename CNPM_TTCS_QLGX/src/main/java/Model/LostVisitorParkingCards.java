@@ -15,11 +15,16 @@ public class LostVisitorParkingCards {
     public LostVisitorParkingCards() {
     }
 
+    public LostVisitorParkingCards( int parking_session_id) {
+        this.parking_session_id = parking_session_id;
+    }
+
     public LostVisitorParkingCards(int lost_visitor_parking_card_id, int parking_session_id) {
         this.lost_visitor_parking_card_id = lost_visitor_parking_card_id;
         this.parking_session_id = parking_session_id;
     }
 
+    
     public int getLost_visitor_parking_card_id() {
         return lost_visitor_parking_card_id;
     }
