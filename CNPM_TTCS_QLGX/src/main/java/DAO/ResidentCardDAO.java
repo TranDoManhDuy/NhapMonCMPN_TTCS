@@ -28,13 +28,11 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
                 ResultSet rs = ps.executeQuery()
         ) {
             while (rs.next()) {
-                String pk_resident_card = rs.getString("pk_resident_card");
-                int qr_index = rs.getInt("qr_index");
-                String resident_card_id = rs.getString("resident_card_id");
+                int pk_resident_card = rs.getInt("pk_resident_card");
                 int customer_id = rs.getInt("customer_id");
                 boolean is_active = rs.getBoolean("is_active");
 
-                ResidentCard card = new ResidentCard(pk_resident_card, qr_index, resident_card_id, customer_id, is_active);
+                ResidentCard card = new ResidentCard(pk_resident_card, customer_id, is_active);
                 lstCards.add(card);
             }
         } catch (Exception e) {
@@ -45,14 +43,13 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
 
     @Override
     public boolean insert(ResidentCard card) {
-        String sql = "INSERT INTO resident_cards (resident_card_id, customer_id, is_active) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO resident_cards (customer_id, is_active) VALUES (?, ?)";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, card.getResident_card_id());
-            ps.setInt(2, card.getCustomer_id());
-            ps.setBoolean(3, card.isIs_active());
+            ps.setInt(1, card.getCustomer_id());
+            ps.setBoolean(2, card.isIs_active());
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -63,15 +60,14 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
 
     @Override
     public boolean update(ResidentCard card) {
-        String sql = "UPDATE resident_cards SET resident_card_id = ?, customer_id = ?, is_active = ? WHERE pk_resident_card = ?";
+        String sql = "UPDATE resident_cards SET customer_id = ?, is_active = ? WHERE pk_resident_card = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, card.getResident_card_id());
-            ps.setInt(2, card.getCustomer_id());
-            ps.setBoolean(3, card.isIs_active());
-            ps.setString(4, card.getPk_resident_card());
+            ps.setInt(1, card.getCustomer_id());
+            ps.setBoolean(2, card.isIs_active());
+            ps.setInt(3, card.getPk_resident_card());
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -80,14 +76,13 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
         return false;
     }
 
-    @Override
     public boolean delete(ResidentCard card) {
         String sql = "DELETE FROM resident_cards WHERE pk_resident_card = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, card.getPk_resident_card());
+            ps.setInt(1, card.getPk_resident_card());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,22 +91,20 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
     }
 
     @Override
-    public ResidentCard findById(int id) {
+    public ResidentCard findbyID(int id) {
         String sql = "SELECT * FROM resident_cards WHERE pk_resident_card = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, String.valueOf(id));
+            ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    String pk_resident_card = rs.getString("pk_resident_card");
-                    int qr_index = rs.getInt("qr_index");
-                    String resident_card_id = rs.getString("resident_card_id");
+                    int pk_resident_card = rs.getInt("pk_resident_card");
                     int customer_id = rs.getInt("customer_id");
                     boolean is_active = rs.getBoolean("is_active");
 
-                    return new ResidentCard(pk_resident_card, qr_index, resident_card_id, customer_id, is_active);
+                    return new ResidentCard(pk_resident_card, customer_id, is_active);
                 }
             }
         } catch (Exception e) {
@@ -120,14 +113,31 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
         return null;
     }
     
+    @Override
+    public boolean delete(int id) {
+        String sql = "DELETE FROM resident_cards WHERE pk_resident_card = ?";
+        try (
+                Connection con = OpenConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    
     public static void main(String[] args) {
-        ResidentCard resident1 = new ResidentCard("11", 1, "1", 5, false);
-        ResidentCard resident2 = new ResidentCard("12", 3, "1", 9, true);
-        ResidentCard r = new ResidentCard("3", 11, true);
+        ResidentCard resident1 = new ResidentCard(2, 1, false);
+        ResidentCard resident2 = new ResidentCard(3, 1, true);
+//        ResidentCard resident2 = new ResidentCard("12", 3, "1", 9, true);
+//        ResidentCard r = new ResidentCard("3", 11, true);
         ResidentCardDAO reDao = ResidentCardDAO.getInstance();
-        reDao.insert(r);
+//        reDao.insert(resident2);
 //        reDao.update(resident2);
-//        ResidentCard re1 = reDao.findById(Integer.valueOf("12"));
+//        ResidentCard re1 = reDao.findbyID(2);
 //        if (re1 != null) {
 //            System.out.println(re1.getCustomer_id());
 //        }
@@ -139,6 +149,6 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
 //                System.out.println(resident.getCustomer_id());
 //            }
 //        }
-//        reDao.delete(resident2);
+        reDao.delete(resident1);
     }
 }

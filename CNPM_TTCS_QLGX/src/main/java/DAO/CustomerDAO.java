@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 /**
  *
@@ -102,13 +101,13 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     }
 
     @Override
-    public boolean delete(Customer customer) {
+    public boolean delete(int id) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         String sql = "DELETE FROM customers WHERE customer_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
-            ps.setInt(1, customer.getCustomer_id());
+            ps.setInt(1, id);
             return ps.executeUpdate() > 0;
         }
         catch (Exception e) {
@@ -118,7 +117,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     }
 
     @Override
-    public Customer findById(int id) {
+    public Customer findbyID(int id) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         String sql = "SELECT * FROM customers WHERE customer_id = ?";
         try (
@@ -149,23 +148,24 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     
     public static void main(String[] args) {
         LocalDate dob = LocalDate.of(2004, 1, 1);
-        Customer Cus = new Customer(0, "Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam");
-        Customer Cus2 = new Customer(8, "Vu Dinh Khoa", "030303030303", dob, "M", "0303030303", "97 Man Thien - TP HCM", 1 , "VietNam");
+        Customer Cus = new Customer("Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam");
+        Customer updateCus = new Customer(2, "Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "American");
+//        Customer Cus2 = new Customer(8, "Vu Dinh Khoa", "030303030303", dob, "M", "0303030303", "97 Man Thien - TP HCM", 1 , "VietNam");
 //        Customer upCus  = new Customer(3, "Vu Dinh Khoa", "030303030303", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam");
         CustomerDAO cusDao = CustomerDAO.getInstance();
         
-//        cusDao.insert(insCus2);
-//        cusDao.update(upCus);
-//        Customer Cus1 = cusDao.findById(7);
+//        cusDao.insert(Cus);
+//        cusDao.update(updateCus);
+//        Customer Cus1 = cusDao.findbyID(2);
 //        if (Cus1 != null) {
 //            System.out.println(Cus1.getFull_name());
 //        }
-        ArrayList<Customer> lstCus = cusDao.getList();
-        if (lstCus != null) {
-            for (Customer customer : lstCus) {
-                System.out.println(customer.getFull_name());
-            }
-        }
-        cusDao.delete(Cus2);
+//        ArrayList<Customer> lstCus = cusDao.getList();
+//        if (lstCus != null) {
+//            for (Customer customer : lstCus) {
+//                System.out.println(customer.getFull_name());
+//            }
+//        }
+//        cusDao.delete(2);
     }
 }

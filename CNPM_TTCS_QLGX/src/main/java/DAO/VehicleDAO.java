@@ -76,13 +76,13 @@ public class VehicleDAO implements InterfaceDAO<Vehicle> {
     }
 
     @Override
-    public boolean delete(Vehicle vehicle) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM vehicles WHERE vehicle_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setInt(1, vehicle.getVehicle_id());
+            ps.setInt(1, id);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class VehicleDAO implements InterfaceDAO<Vehicle> {
     }
 
     @Override
-    public Vehicle findById(int id) {
+    public Vehicle findbyID(int id) {
         String sql = "SELECT * FROM vehicles WHERE vehicle_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
@@ -115,22 +115,23 @@ public class VehicleDAO implements InterfaceDAO<Vehicle> {
     }
     
     public static void main(String[] args) {
-        Vehicle vel = new Vehicle(3, "0101010101", 1, "Air Blade", "Red");
+        Vehicle vel = new Vehicle("0101010101", 1, "Air Blade", "Red");
+        Vehicle velUp = new Vehicle(2, "0101010101", 1, "Air Blade", "Black");
         VehicleDAO velDao = VehicleDAO.getInstance();
 //        velDao.insert(vel);
-//        velDao.update(vel);
-        Vehicle vehicle = velDao.findById(vel.getVehicle_id());
-        if (vehicle != null) {
-            System.out.println(vehicle.getVehicle_name());
-        }
-
-        ArrayList<Vehicle> lstVel = velDao.getList();
-        
-        if (lstVel != null) {
-            for (Vehicle v : lstVel) {
-                System.out.println(v.getIdentification_code());
-            }
-        }
-        velDao.delete(vel);
+//        velDao.update(velUp);
+//        Vehicle vehicle = velDao.findbyID(2);
+//        if (vehicle != null) {
+//            System.out.println(vehicle.getVehicle_name());
+//        }
+//
+//        ArrayList<Vehicle> lstVel = velDao.getList();
+//        
+//        if (lstVel != null) {
+//            for (Vehicle v : lstVel) {
+//                System.out.println(v.getIdentification_code());
+//            }
+//        }
+        velDao.delete(2);
     }   
 }

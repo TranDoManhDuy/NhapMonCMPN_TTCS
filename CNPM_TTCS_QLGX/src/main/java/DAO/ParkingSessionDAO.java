@@ -28,7 +28,7 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
                 ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 int parking_session_id = rs.getInt("parking_session_id");
-                String card_id = rs.getString("card_id");
+                int card_id = rs.getInt("card_id");
                 boolean is_service = rs.getBoolean("is_service");
                 LocalTime check_in_time = (rs.getTime("check_in_time") != null) ? rs.getTime("check_in_time").toLocalTime() : null;
                 LocalTime check_out_time = (rs.getTime("check_out_time") != null) ? rs.getTime("check_out_time").toLocalTime() : null;
@@ -51,7 +51,7 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, session.getCard_id());
+            ps.setInt(1, session.getCard_id());
             ps.setBoolean(2, session.isIs_service());
             ps.setTime(3, Time.valueOf(session.getCheck_in_time()));
             
@@ -91,7 +91,7 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, session.getCard_id());
+            ps.setInt(1, session.getCard_id());
             ps.setBoolean(2, session.isIs_service());
             ps.setTime(3, Time.valueOf(session.getCheck_in_time()));
             
@@ -125,7 +125,6 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
         return false;
     }
 
-    @Override
     public boolean delete(ParkingSession session) {
         String sql = "DELETE FROM parking_sessions WHERE parking_session_id = ?";
         try (
@@ -140,7 +139,7 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
     }
 
     @Override
-    public ParkingSession findById(int id) {
+    public ParkingSession findbyID(int id) {
         String sql = "SELECT * FROM parking_sessions WHERE parking_session_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
@@ -152,7 +151,7 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
                 LocalTime check_out_time = (rs.getTime("check_out_time") != null) ? rs.getTime("check_out_time").toLocalTime() : null;
                 return new ParkingSession(
                     rs.getInt("parking_session_id"),
-                    rs.getString("card_id"),
+                    rs.getInt("card_id"),
                     rs.getBoolean("is_service"),
                     check_in_time,
                     check_out_time,
@@ -167,16 +166,33 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
         }
         return null;
     }
+    
+    @Override
+    public boolean delete(int id) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM parking_sessions WHERE parking_session_id = ?";
+        try (
+                Connection con = OpenConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     public static void main(String[] args) {
         LocalTime s1 = LocalTime.of(13, 35);
         LocalTime s2 = LocalTime.of(13, 40);
-        ParkingSession par = new ParkingSession(0, "11", true, s1, null, 5, -1, 4, -1);
+        ParkingSession par = new ParkingSession(1, true, s1, null, 1, -1, 1, -1);
+        ParkingSession par2 = new ParkingSession(4, 1, true, s1, s2, 1, -1, 1, -1);
 //        Customer upCus  = new Customer(3, "Vu Dinh Khoa", "030303030303", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam");
         ParkingSessionDAO parDao = ParkingSessionDAO.getInstance();
         
-        parDao.insert(par);
-//        parDao.update(par);
-//        ParkingSession par1 = parDao.findById(2);
+//        parDao.insert(par);
+//        parDao.update(par2);
+//        ParkingSession par1 = parDao.findbyID(4);
 //        if (par1 != null) {
 //            System.out.println(par1.getVehicle_id());
 //        }
@@ -186,6 +202,6 @@ public class ParkingSessionDAO implements InterfaceDAO<ParkingSession> {
 //                System.out.println(parkingsession.getVehicle_id());
 //            }
 //        }
-//        parDao.delete(par);
+        parDao.delete(4);
     }
 }

@@ -12,7 +12,7 @@ import java.time.LocalTime;
  */
 public class ParkingSession {
     private int parking_session_id;
-    private String card_id;
+    private int card_id;
     private boolean is_service;
     private LocalTime check_in_time;
     private LocalTime check_out_time; 
@@ -24,7 +24,7 @@ public class ParkingSession {
     public ParkingSession() {
     }
 
-    public ParkingSession(String card_id, boolean is_service, LocalTime check_in_time, LocalTime check_out_time, int check_in_shift_id, int check_out_shift_id, int vehicle_id, int amount) {
+    public ParkingSession(int card_id, boolean is_service, LocalTime check_in_time, LocalTime check_out_time, int check_in_shift_id, int check_out_shift_id, int vehicle_id, int amount) {
         this.card_id = card_id;
         this.is_service = is_service;
         this.check_in_time = check_in_time;
@@ -35,7 +35,7 @@ public class ParkingSession {
         this.amount = amount;
     }
     
-    public ParkingSession(int parking_session_id, String card_id, boolean is_service, LocalTime check_in_time, LocalTime check_out_time, int check_in_shift_id, int check_out_shift_id, int vehicle_id, int amount) {
+    public ParkingSession(int parking_session_id, int card_id, boolean is_service, LocalTime check_in_time, LocalTime check_out_time, int check_in_shift_id, int check_out_shift_id, int vehicle_id, int amount) {
         this.parking_session_id = parking_session_id;
         this.card_id = card_id;
         this.is_service = is_service;
@@ -55,11 +55,11 @@ public class ParkingSession {
         this.parking_session_id = parking_session_id;
     }
 
-    public String getCard_id() {
+    public int getCard_id() {
         return card_id;
     }
 
-    public void setCard_id(String card_id) {
+    public void setCard_id(int card_id) {
         this.card_id = card_id;
     }
 

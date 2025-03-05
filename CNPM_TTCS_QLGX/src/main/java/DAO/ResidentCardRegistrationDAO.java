@@ -24,7 +24,8 @@ public class ResidentCardRegistrationDAO implements InterfaceDAO<ResidentCardReg
                 ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 lstRegistrations.add(new ResidentCardRegistration(
-                        rs.getString("pk_resident_card"),
+                        rs.getInt("resident_cards_registration_id"),
+                        rs.getInt("pk_resident_card"),
                         rs.getInt("registration_id")
                 ));
             }
@@ -40,7 +41,7 @@ public class ResidentCardRegistrationDAO implements InterfaceDAO<ResidentCardReg
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, registration.getPk_resident_card());
+            ps.setInt(1, registration.getPk_resident_card());
             ps.setInt(2, registration.getRegistration_id());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -51,12 +52,13 @@ public class ResidentCardRegistrationDAO implements InterfaceDAO<ResidentCardReg
 
     @Override
     public boolean update(ResidentCardRegistration registration) {
-        String sql = "UPDATE resident_card_registrations SET registration_id = ? WHERE pk_resident_card = ?";
+        String sql = "UPDATE resident_card_registrations SET registration_id = ?, pk_resident_card = ? WHERE resident_cards_registration_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, registration.getRegistration_id());
-            ps.setString(2, registration.getPk_resident_card());
+            ps.setInt(2, registration.getPk_resident_card());
+            ps.setInt(3, registration.getResident_cards_registration_id());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,13 +66,12 @@ public class ResidentCardRegistrationDAO implements InterfaceDAO<ResidentCardReg
         return false;
     }
 
-    @Override
     public boolean delete(ResidentCardRegistration registration) {
-        String sql = "DELETE FROM resident_card_registrations WHERE pk_resident_card = ?";
+        String sql = "SELECT * FROM resident_card_registrations WHERE resident_cards_registration_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, registration.getPk_resident_card());
+            ps.setInt(1, registration.getResident_cards_registration_id());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,17 +80,18 @@ public class ResidentCardRegistrationDAO implements InterfaceDAO<ResidentCardReg
     }
 
     @Override
-    public ResidentCardRegistration findById(int pk_resident_card) {
-        String sql = "SELECT * FROM resident_card_registrations WHERE pk_resident_card = ?";
+    public ResidentCardRegistration findbyID(int resident_cards_registration_id) {
+        String sql = "SELECT * FROM resident_card_registrations WHERE resident_cards_registration_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, String.valueOf(pk_resident_card));
+            ps.setInt(1, resident_cards_registration_id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new ResidentCardRegistration(
-                            rs.getString("pk_resident_card"),
-                            rs.getInt("registration_id")
+                        rs.getInt("resident_cards_registration_id"),
+                        rs.getInt("pk_resident_card"),
+                        rs.getInt("registration_id")
                     );
                 }
             }
@@ -97,5 +99,10 @@ public class ResidentCardRegistrationDAO implements InterfaceDAO<ResidentCardReg
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
