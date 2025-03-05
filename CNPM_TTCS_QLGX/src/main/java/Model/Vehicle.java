@@ -18,6 +18,13 @@ public class Vehicle {
     public Vehicle() {
     }
 
+    public Vehicle(String identification_code, int vehicle_type_id, String vehicle_name, String vehicle_color) {
+        this.identification_code = identification_code;
+        this.vehicle_type_id = vehicle_type_id;
+        this.vehicle_name = vehicle_name;
+        this.vehicle_color = vehicle_color;
+    }
+
     public Vehicle(int vehicle_id, String identification_code, int vehicle_type_id, String vehicle_name, String vehicle_color) {
         this.vehicle_id = vehicle_id;
         this.identification_code = identification_code;

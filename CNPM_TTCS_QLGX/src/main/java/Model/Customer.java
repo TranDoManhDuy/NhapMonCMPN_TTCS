@@ -25,6 +25,17 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String full_name, String ssn, LocalDate date_of_birth, String gender, String phone_number, String address, int building_id, String nationality) {
+        this.full_name = full_name;
+        this.ssn = ssn;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
+        this.phone_number = phone_number;
+        this.address = address;
+        this.building_id = building_id;
+        this.nationality = nationality;
+    }
+    
     public Customer(int customer_id, String full_name, String ssn, LocalDate date_of_birth, String gender, String phone_number, String address, int building_id, String nationality) {
         this.customer_id = customer_id;
         this.full_name = full_name;

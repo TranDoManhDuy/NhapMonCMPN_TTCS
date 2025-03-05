@@ -10,14 +10,14 @@ package Model;
  */
 public class ResidentCardRegistration {
     private String pk_resident_card; 
-    private int registration_if;
+    private int registration_id;
 
     public ResidentCardRegistration() {
     }
 
     public ResidentCardRegistration(String pk_resident_card, int registration_if) {
         this.pk_resident_card = pk_resident_card;
-        this.registration_if = registration_if;
+        this.registration_id = registration_if;
     }
 
     public String getPk_resident_card() {
@@ -28,11 +28,11 @@ public class ResidentCardRegistration {
         this.pk_resident_card = pk_resident_card;
     }
 
-    public int getRegistration_if() {
-        return registration_if;
+    public int getRegistration_id() {
+        return registration_id;
     }
 
-    public void setRegistration_if(int registration_if) {
-        this.registration_if = registration_if;
+    public void setRegistration_id(int registration_if) {
+        this.registration_id = registration_if;
     }
 }

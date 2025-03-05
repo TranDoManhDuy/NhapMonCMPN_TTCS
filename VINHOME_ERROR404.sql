@@ -1,5 +1,5 @@
-﻿CREATE DATABASE TEST
-USE TEST
+﻿CREATE DATABASE TEST_VINHOMEPARKING
+USE TEST_VINHOMEPARKING
 
 CREATE TABLE [supervisors] (
   [manager_id] int,
@@ -103,7 +103,7 @@ CREATE TABLE [resident_cards] (
 GO
 
 CREATE TABLE [lost_resident_cards] (
-  [pk_resident_card] int,
+  [pk_resident_card] VARCHAR(10),
   [parking_session_id] int,
   PRIMARY KEY ([pk_resident_card], [parking_session_id])
 )
@@ -121,6 +121,13 @@ CREATE TABLE [parking_sessions] (
   [amount] INT
 )
 GO
+
+ALTER TABLE parking_sessions
+ALTER COLUMN check_in_time TIME NOT NULL;
+
+ALTER TABLE parking_sessions
+ALTER COLUMN check_out_time TIME NULL;
+
 
 CREATE TABLE [service_fee] (
   [service_fee_id] int PRIMARY KEY IDENTITY(1, 1),
@@ -184,11 +191,14 @@ CREATE TABLE [payments] (
 )
 GO
 
+DROP TABLE [type_service]
+GO
 CREATE TABLE [type_service] (
   [type_service_id] int PRIMARY KEY IDENTITY(1, 1),
   [service_fee_id] int NOT NULL,
   [month_unit] int NOT NULL,
   [service_name] varchar(255) UNIQUE NOT NULL,
+  [decision_date] date not null,
   [payment_coefficient] int NOT NULL
 )
 GO
@@ -213,7 +223,7 @@ CREATE TABLE [session_fees] (
 GO
 
 CREATE TABLE [resident_cards_registration] (
-  [pk_resident_card] int,
+  [pk_resident_card] VARCHAR(10),
   [registration_id] int,
   PRIMARY KEY ([pk_resident_card], [registration_id])
 )
@@ -225,7 +235,7 @@ GO
 ALTER TABLE [resident_cards_registration] ADD FOREIGN KEY ([registration_id]) REFERENCES [registration] ([registration_id])
 GO
 
-ALTER TABLE [resident_cards] ADD FOREIGN KEY ([pk_resident_card]) REFERENCES [lost_resident_cards] ([pk_resident_card])
+ALTER TABLE [lost_resident_cards] ADD FOREIGN KEY ([pk_resident_card]) REFERENCES [resident_cards] ([pk_resident_card])
 GO
 
 ALTER TABLE [payments] ADD FOREIGN KEY ([service_type_id]) REFERENCES [type_service] ([type_service_id])
@@ -234,7 +244,7 @@ GO
 ALTER TABLE [session_fees] ADD FOREIGN KEY ([time_frame_id]) REFERENCES [time_frames] ([time_frame_id])
 GO
 
-ALTER TABLE [staff] ADD FOREIGN KEY ([staff_id]) REFERENCES [supervisors] ([staff_id])
+ALTER TABLE [supervisors] ADD FOREIGN KEY ([staff_id]) REFERENCES [staff] ([staff_id])
 GO
 
 ALTER TABLE [service_fee] ADD FOREIGN KEY ([vehicle_type_id]) REFERENCES [vehicle_types] ([vehicle_type_id])
@@ -273,19 +283,19 @@ GO
 ALTER TABLE [customers] ADD FOREIGN KEY ([building_id]) REFERENCES [buildings] ([building_id])
 GO
 
-ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([card_id]) REFERENCES [visitor_parking_cards] ([visitor_parking_card_id])
+-- ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([card_id]) REFERENCES [visitor_parking_cards] ([visitor_parking_card_id])
+-- GO
+
+ALTER TABLE [lost_visitor_parking_cards] ADD FOREIGN KEY ([parking_session_id]) REFERENCES [parking_sessions] ([parking_session_id])
 GO
 
-ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([parking_session_id]) REFERENCES [lost_visitor_parking_cards] ([parking_session_id])
-GO
-
-ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([card_id]) REFERENCES [resident_cards] ([pk_resident_card])
-GO
+-- ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([card_id]) REFERENCES [resident_cards] ([pk_resident_card])
+-- GO
 
 ALTER TABLE [resident_cards] ADD FOREIGN KEY ([customer_id]) REFERENCES [customers] ([customer_id])
 GO
 
-ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([parking_session_id]) REFERENCES [lost_resident_cards] ([parking_session_id])
+ALTER TABLE [lost_resident_cards] ADD FOREIGN KEY ([parking_session_id]) REFERENCES [parking_sessions] ([parking_session_id])
 GO
 
 ALTER TABLE [parking_sessions] ADD FOREIGN KEY ([vehicle_id]) REFERENCES [vehicles] ([vehicle_id])
@@ -300,7 +310,7 @@ GO
 ALTER TABLE [supervisors] ADD FOREIGN KEY ([manager_id]) REFERENCES [managers] ([staff_id])
 GO
 
-ALTER TABLE [staff] ADD FOREIGN KEY ([staff_id]) REFERENCES [managers] ([staff_id])
+ALTER TABLE [managers] ADD FOREIGN KEY ([staff_id]) REFERENCES [staff] ([staff_id])
 GO
 
 ALTER TABLE [staff] ADD FOREIGN KEY ([role_id]) REFERENCES [roles] ([role_id])
@@ -338,23 +348,4 @@ GO
 
 ALTER TABLE session_fees
 ADD CONSTRAINT uq_session_fees UNIQUE (time_frame_id, vehicle_type_id, decision_date)
-GO	
-
-CREATE TRIGGER prevent_multiple_shifts 
-ON [dbo].[shift_works]
-FOR INSERT
-AS
-BEGIN
-	IF EXISTS (
-		SELECT 1 
-		FROM INSERTED i
-		JOIN shift_works s
-			ON i.staff_id = s.staff_id AND i.shift_date = s.shift_date
-	)
-	BEGIN 
-		RAISERROR('Vượt số ca quy định!', 16, 1);
-		ROLLBACK TRAN 
-		RETURN
-	END
-END
 GO
