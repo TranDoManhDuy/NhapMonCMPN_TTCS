@@ -1,0 +1,6 @@
+modelPush.class
+DAO\BuildingsDAO.class
+DAO\LostVisitorParkingCardsDAO.class
+DAO\TasksDAO.class
+DAO\VisitorParkingCardsDAO.class
+DAO\ShiftTypesDAO.class
