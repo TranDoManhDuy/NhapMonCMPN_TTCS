@@ -14,6 +14,7 @@ public class OpenConnection {
     public static Connection getConnection() throws Exception {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String connectionURL = "jdbc:sqlserver://localhost; database=VINHOME_ERROR404; encrypt=false";
+        String connectionURL =  "jdbc:sqlserver://localhost;database= TEST_VINHOMEPARKING;encrypt=true;trustServerCertificate=true;";
         String username = "sa";
         String password = "123";
         Connection conn = DriverManager.getConnection(connectionURL, username, password);
