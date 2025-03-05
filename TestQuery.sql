@@ -3,13 +3,13 @@
 INSERT INTO buildings(building_name, address) VALUES 
 	('S10.01', 'TP Thu Duc');
 INSERT INTO customers (full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality) VALUES
-	('Tran Do Manh Duy', '050505050505', '01/01/2004', 'M', '1234567891', 'TP Thu Duc', 1, 'VietNam');
+	('Tran Van Trong', '050505050503', '01/01/2004', 'M', '1234567893', 'TP Thu Duc', 1, 'VietNam');
 INSERT INTO vehicles (identification_code, vehicle_type_id, vehicle_name, vehicle_color) VALUES 
 	('0101010107', 1, 'R15', 'Black');
 INSERT INTO shift_types (shift_type_name, start_time, end_time) VALUES 
 	('Ca 2', '13:01', '19:00');
-INSERT INTO resident_cards(customer_id, resident_card_id, is_active, pk_resident_card) VALUES
-	(9, 2, 1, 13);
+INSERT INTO resident_cards(customer_id, resident_card_id, is_active) VALUES
+	(10, 2, 1);
 INSERT INTO tasks(task_name) VALUES 
 	('The ra');
 INSERT INTO roles (role_name) VALUES
@@ -47,7 +47,7 @@ UPDATE resident_cards SET resident_card_id = 1, customer_id = 5, is_active = 0 W
 DELETE FROM customers WHERE customer_id = 3;
 
 -- trigger
-CREATE TRIGGER insert_residentcards_registration
+ALTER TRIGGER insert_residentcards_registration
 ON registration
 AFTER INSERT
 AS
@@ -74,5 +74,20 @@ BEGIN
 	JOIN resident_cards r
 		ON i.customer_id = r.customer_id
 	WHERE r.is_active = 1;
+END
+GO
+
+CREATE TRIGGER create_pk_resident_card 
+ON resident_cards
+AFTER INSERT
+AS 
+BEGIN
+	SET NOCOUNT ON;
+	
+	UPDATE rc
+	SET rc.pk_resident_card = i.resident_card_id + '-' + CAST(i.qr_index AS VARCHAR)
+	FROM resident_cards rc
+	INNER JOIN INSERTED i 
+		ON rc.qr_index = i.qr_index AND rc.resident_card_id = i.resident_card_id;
 END
 GO

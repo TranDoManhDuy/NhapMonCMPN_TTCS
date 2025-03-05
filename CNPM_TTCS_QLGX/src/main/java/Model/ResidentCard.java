@@ -18,6 +18,12 @@ public class ResidentCard {
     public ResidentCard() {
     }
 
+    public ResidentCard(String resident_card_id, int customer_id, boolean is_active) {
+        this.resident_card_id = resident_card_id;
+        this.customer_id = customer_id;
+        this.is_active = is_active;
+    }
+    
     public ResidentCard(String pk_resident_card, int qr_index, String resident_card_id, int customer_id, boolean is_active) {
         this.pk_resident_card = pk_resident_card;
         this.qr_index = qr_index;

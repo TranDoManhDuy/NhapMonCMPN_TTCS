@@ -45,15 +45,14 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
 
     @Override
     public boolean insert(ResidentCard card) {
-        String sql = "INSERT INTO resident_cards (pk_resident_card, resident_card_id, customer_id, is_active) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO resident_cards (resident_card_id, customer_id, is_active) VALUES (?, ?, ?)";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, card.getPk_resident_card());
-            ps.setString(2, card.getResident_card_id());
-            ps.setInt(3, card.getCustomer_id());
-            ps.setBoolean(4, card.isIs_active());
+            ps.setString(1, card.getResident_card_id());
+            ps.setInt(2, card.getCustomer_id());
+            ps.setBoolean(3, card.isIs_active());
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
@@ -124,21 +123,22 @@ public class ResidentCardDAO implements InterfaceDAO<ResidentCard> {
     public static void main(String[] args) {
         ResidentCard resident1 = new ResidentCard("11", 1, "1", 5, false);
         ResidentCard resident2 = new ResidentCard("12", 3, "1", 9, true);
+        ResidentCard r = new ResidentCard("3", 11, true);
         ResidentCardDAO reDao = ResidentCardDAO.getInstance();
-//        reDao.insert(resident2);
+        reDao.insert(r);
 //        reDao.update(resident2);
-        ResidentCard re1 = reDao.findById(Integer.valueOf("12"));
-        if (re1 != null) {
-            System.out.println(re1.getCustomer_id());
-        }
-
-        ArrayList<ResidentCard> lstRe = reDao.getList();
-        
-        if (lstRe != null) {
-            for (ResidentCard resident : lstRe) {
-                System.out.println(resident.getCustomer_id());
-            }
-        }
-        reDao.delete(resident2);
+//        ResidentCard re1 = reDao.findById(Integer.valueOf("12"));
+//        if (re1 != null) {
+//            System.out.println(re1.getCustomer_id());
+//        }
+//
+//        ArrayList<ResidentCard> lstRe = reDao.getList();
+//        
+//        if (lstRe != null) {
+//            for (ResidentCard resident : lstRe) {
+//                System.out.println(resident.getCustomer_id());
+//            }
+//        }
+//        reDao.delete(resident2);
     }
 }
