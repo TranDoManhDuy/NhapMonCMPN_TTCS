@@ -12,4 +12,8 @@ import java.util.ArrayList;
  */
 public interface InterfaceDAO<T> {
     public ArrayList<T> getList();
+    public boolean insert(T object);
+    public boolean update(T object);
+    public T findbyID(int id);
+    public boolean delete(int id);
 }
