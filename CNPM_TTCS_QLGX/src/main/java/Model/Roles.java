@@ -10,6 +10,10 @@ public class Roles {
         this.role_id = role_id;
         this.role_name = role_name;
     }
+    
+    public Roles(String role_name) {
+        this.role_name = role_name;
+    }
 
     public int getRoleId() {
         return role_id;

@@ -35,14 +35,13 @@ public class RightsDAO {
     }
     
     public boolean insert(Rights right) {
-        String sql = "INSERT INTO rights (right_id, right_name, right_desc) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO rights (right_name, right_desc) VALUES (?, ?)";
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, right.getRightId());
-            ptmt.setString(2, right.getRightName());
-            ptmt.setString(3, right.getRightDesc());
+            ptmt.setString(1, right.getRightName());
+            ptmt.setString(2, right.getRightDesc());
             
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {

@@ -12,6 +12,11 @@ public class Rights {
         this.right_name = right_name;
         this.right_desc = right_desc;
     }
+    
+    public Rights(String right_name, String right_desc) {
+        this.right_name = right_name;
+        this.right_desc = right_desc;
+    }
 
     public int getRightId() {
         return right_id;

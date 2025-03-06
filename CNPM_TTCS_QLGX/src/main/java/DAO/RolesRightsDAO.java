@@ -8,11 +8,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class RolesRightsDAO {
-
     public static RolesRightsDAO getInstance() {
-        return new RolesRightsDAO();
+            return new RolesRightsDAO();
     }
-    
+
     public ArrayList<RolesRights> getAllRolesRights() {
         ArrayList<RolesRights> list = new ArrayList<>();
         String sql = "SELECT * FROM roles_rights";
@@ -25,7 +24,8 @@ public class RolesRightsDAO {
             while (rs.next()) {
                 int roleId = rs.getInt("role_id");
                 int rightId = rs.getInt("right_id");
-                list.add(new RolesRights(roleId, rightId));
+                int rolesRightsId = rs.getInt("roles_rights_id");
+                list.add(new RolesRights(roleId, rightId, rolesRightsId));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,21 +50,56 @@ public class RolesRightsDAO {
         return false;
     }
 
-    public boolean delete(int roleId, int rightId) {
-        String sql = "DELETE FROM roles_rights WHERE role_id = ? AND right_id = ?";
+    public boolean update(RolesRights rolesRights) {
+        String sql = "UPDATE roles_rights SET role_id = ?, right_id = ? WHERE roles_rights_id = ?";
 
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, roleId);
-            ptmt.setInt(2, rightId);
+            ptmt.setInt(1, rolesRights.getRoleId());
+            ptmt.setInt(2, rolesRights.getRightId());
+            ptmt.setInt(3, rolesRights.getRolesRightsId());
 
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean delete(int rolesRightsId) {
+        String sql = "DELETE FROM roles_rights WHERE roles_rights_id = ?";
+
+        try (
+            Connection conn = OpenConnection.getConnection();
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+        ) {
+            ptmt.setInt(1, rolesRightsId);
+            return ptmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public RolesRights findById(int rolesRightsId) {
+        String sql = "SELECT * FROM roles_rights WHERE roles_rights_id = ?";
+
+        try (
+            Connection conn = OpenConnection.getConnection();
+            PreparedStatement ptmt = conn.prepareStatement(sql);
+        ) {
+            ptmt.setInt(1, rolesRightsId);
+            ResultSet rs = ptmt.executeQuery();
+
+            if (rs.next()) {
+                return new RolesRights(rs.getInt("role_id"), rs.getInt("right_id"), rs.getInt("roles_rights_id"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ArrayList<Integer> getRightsByRoleId(int roleId) {

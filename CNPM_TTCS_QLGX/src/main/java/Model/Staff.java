@@ -29,6 +29,19 @@ public class Staff {
         this.email = email;
         this.is_active = is_active;
     }
+    
+    public Staff(int role_id, String full_name, String ssn, LocalDate date_of_birth, 
+                 String gender, String phone_number, String address, String email, boolean is_active) {
+        this.role_id = role_id;
+        this.full_name = full_name;
+        this.ssn = ssn;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
+        this.phone_number = phone_number;
+        this.address = address;
+        this.email = email;
+        this.is_active = is_active;
+    }
 
     public int getStaffId() {
         return staff_id;

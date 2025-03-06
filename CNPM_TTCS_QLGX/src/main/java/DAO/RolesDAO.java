@@ -35,14 +35,13 @@ public class RolesDAO {
     }
 
     public boolean insert(Roles role) {
-        String sql = "INSERT INTO roles (role_id, role_name) VALUES (?, ?)";
+        String sql = "INSERT INTO roles (role_name) VALUES (?)";
         
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
         ) {
-            ptmt.setInt(1, role.getRoleId());
-            ptmt.setString(2, role.getRoleName());
+            ptmt.setString(1, role.getRoleName());
             
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {
