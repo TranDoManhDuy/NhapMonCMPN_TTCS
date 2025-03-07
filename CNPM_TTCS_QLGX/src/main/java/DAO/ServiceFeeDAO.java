@@ -24,7 +24,7 @@ public class ServiceFeeDAO implements InterfaceDAO.InterfaceDAO <ServiceFee>{
     @Override
     public ArrayList<ServiceFee> getList() {
         ArrayList<ServiceFee> list = new ArrayList<>();
-        String sql = "SELECT * FROM service_fee";
+        String sql = "SELECT * FROM service_fees";
         
         try (
             Connection conn = OpenConnection.getConnection();
@@ -46,7 +46,7 @@ public class ServiceFeeDAO implements InterfaceDAO.InterfaceDAO <ServiceFee>{
         return list;
     }
     public boolean insert(ServiceFee serviceFee) {
-        String sql = "INSERT INTO service_fee (decision_date, vehicle_type_id, amount, is_active) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO service_fees (decision_date, vehicle_type_id, amount, is_active) VALUES (?, ?, ?, ?)";
         
         try (
             Connection conn = OpenConnection.getConnection();
@@ -64,7 +64,7 @@ public class ServiceFeeDAO implements InterfaceDAO.InterfaceDAO <ServiceFee>{
         return false;
     }
     public boolean update(ServiceFee serviceFee) {
-        String sql = "UPDATE service_fee SET decision_date = ?, vehicle_type_id = ?, amount = ?, is_active = ? WHERE service_fee_id = ?";
+        String sql = "UPDATE service_fees SET decision_date = ?, vehicle_type_id = ?, amount = ?, is_active = ? WHERE service_fee_id = ?";
         
         try (
             Connection conn = OpenConnection.getConnection();
@@ -83,7 +83,7 @@ public class ServiceFeeDAO implements InterfaceDAO.InterfaceDAO <ServiceFee>{
         return false;
     }
     public ServiceFee findbyID(int id) {
-        String sql = "SELECT * FROM service_free WHERE service_fee_id = ?";
+        String sql = "SELECT * FROM service_frees WHERE service_fee_id = ?";
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class ServiceFeeDAO implements InterfaceDAO.InterfaceDAO <ServiceFee>{
         return null;
     }
     public boolean delete(int id) {
-        String sql = "DELETE FROM service_fee WHERE service_fee_id = ?";
+        String sql = "DELETE FROM service_fees WHERE service_fee_id = ?";
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);

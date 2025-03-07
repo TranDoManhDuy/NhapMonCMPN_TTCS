@@ -13,13 +13,15 @@ public class TypeService {
     private int month_unit;
     private String service_name;
     private int payment_coefficient;
+    private boolean is_active;
 
-    public TypeService(int type_service_id, int service_fee_id, int month_unit, String service_name, int payment_coefficient) {
+    public TypeService(int type_service_id, int service_fee_id, int month_unit, String service_name, int payment_coefficient, boolean is_active) {
         this.type_service_id = type_service_id;
         this.service_fee_id = service_fee_id;
         this.month_unit = month_unit;
         this.service_name = service_name;
         this.payment_coefficient = payment_coefficient;
+        this.is_active = is_active;
     }
 
     public TypeService() {
@@ -43,6 +45,14 @@ public class TypeService {
 
     public int getMonth_unit() {
         return month_unit;
+    }
+
+    public boolean isIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
     }
 
     public void setMonth_unit(int month_unit) {

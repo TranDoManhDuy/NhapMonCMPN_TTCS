@@ -36,8 +36,9 @@ public class TypeServiceDAO implements InterfaceDAO.InterfaceDAO<TypeService>{
                 int month_unit = rs.getInt("month_unit");
                 String service_name = rs.getString("service_name");
                 int payment_coefficient = rs.getInt("payment_coefficient");
+                boolean is_active = rs.getBoolean("is_active");
                 
-                TypeService typeService = new TypeService(type_service_id, service_fee_id, month_unit, service_name, payment_coefficient);
+                TypeService typeService = new TypeService(type_service_id, service_fee_id, month_unit, service_name, payment_coefficient, is_active);
                 listTypeService.add(typeService);
             }
         } catch (Exception e) {
@@ -66,7 +67,7 @@ public class TypeServiceDAO implements InterfaceDAO.InterfaceDAO<TypeService>{
     
     @Override
     public boolean update(TypeService typeService) {
-        String sql = "UPDATE type_service SET service_fee_id = ?, month_unit = ?, service_name = ?, payment_coefficient = ? WHERE type_service_id = ?";
+        String sql = "UPDATE type_service SET service_fee_id = ?, month_unit = ?, service_name = ?, payment_coefficient = ?, is_active = ? WHERE type_service_id = ?";
         try (
             Connection conn = OpenConnection.getConnection();
             PreparedStatement ptmt = conn.prepareStatement(sql);
@@ -75,7 +76,8 @@ public class TypeServiceDAO implements InterfaceDAO.InterfaceDAO<TypeService>{
             ptmt.setInt(2, typeService.getMonth_unit());
             ptmt.setString(3, typeService.getService_name());
             ptmt.setInt(4, typeService.getPayment_coefficient());
-            ptmt.setInt(5, typeService.getType_service_id());
+            ptmt.setBoolean(5, typeService.isIs_active());
+            ptmt.setInt(6, typeService.getType_service_id());
             
             return ptmt.executeUpdate() > 0;
         } catch (Exception e) {
@@ -100,8 +102,8 @@ public class TypeServiceDAO implements InterfaceDAO.InterfaceDAO<TypeService>{
                 int month_unit = rs.getInt("month_unit");
                 String service_name = rs.getString("service_name");
                 int payment_coefficient = rs.getInt("payment_coefficient");
-                
-                return new TypeService(type_service_id, service_fee_id, month_unit, service_name, payment_coefficient);
+                boolean is_active = rs.getBoolean("is_active");
+                return new TypeService(type_service_id, service_fee_id, month_unit, service_name, payment_coefficient, is_active);
             }
         } catch (Exception e) {
             e.printStackTrace();
