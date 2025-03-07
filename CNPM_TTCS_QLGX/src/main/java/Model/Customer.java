@@ -21,11 +21,12 @@ public class Customer {
     private String address;
     private int building_id;
     private String nationality;
+    private boolean is_active;
 
     public Customer() {
     }
 
-    public Customer(String full_name, String ssn, LocalDate date_of_birth, String gender, String phone_number, String address, int building_id, String nationality) {
+    public Customer(String full_name, String ssn, LocalDate date_of_birth, String gender, String phone_number, String address, int building_id, String nationality, boolean is_active) {
         this.full_name = full_name;
         this.ssn = ssn;
         this.date_of_birth = date_of_birth;
@@ -34,9 +35,10 @@ public class Customer {
         this.address = address;
         this.building_id = building_id;
         this.nationality = nationality;
+        this.is_active = is_active;
     }
-    
-    public Customer(int customer_id, String full_name, String ssn, LocalDate date_of_birth, String gender, String phone_number, String address, int building_id, String nationality) {
+
+    public Customer(int customer_id, String full_name, String ssn, LocalDate date_of_birth, String gender, String phone_number, String address, int building_id, String nationality, boolean is_active) {
         this.customer_id = customer_id;
         this.full_name = full_name;
         this.ssn = ssn;
@@ -46,6 +48,7 @@ public class Customer {
         this.address = address;
         this.building_id = building_id;
         this.nationality = nationality;
+        this.is_active = is_active;
     }
 
     public int getCustomer_id() {
@@ -118,6 +121,14 @@ public class Customer {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public boolean isIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
     }
     
     @Override
