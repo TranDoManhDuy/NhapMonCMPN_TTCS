@@ -42,7 +42,8 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
                 String phone_number = rs.getString("phone_number");
                 String address = rs.getString("address");
                 String nationality = rs.getString("nationality");
-                Customer newCus = new Customer(customer_id, full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality);
+                boolean is_active = rs.getBoolean("is_active");
+                Customer newCus = new Customer(customer_id, full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality, is_active);
                 lstCus.add(newCus);
             }
         }
@@ -55,7 +56,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     @Override
     public boolean insert(Customer customer) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        String sql = "INSERT INTO customers (full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO customers (full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality, is_active) VALUES (?,?,?,?,?,?,?,?,?)";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)) {
@@ -68,6 +69,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
             ps.setString(6, customer.getAddress());
             ps.setInt(7, customer.getBuilding_id());
             ps.setString(8, customer.getNationality());
+            ps.setBoolean(9, customer.isIs_active());
             return ps.executeUpdate() > 0;
         }
         catch (Exception e) {
@@ -79,11 +81,11 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     @Override
     public boolean update(Customer customer) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        String sql = "UPDATE customers SET full_name = ?, ssn = ?, date_of_birth = ?, gender = ?, phone_number = ?, address = ?, building_id = ?, nationality = ? WHERE customer_id = ?";
+        String sql = "UPDATE customers SET full_name = ?, ssn = ?, date_of_birth = ?, gender = ?, phone_number = ?, address = ?, building_id = ?, nationality = ?, is_active = ? WHERE customer_id = ?";
         try (
                 Connection con = OpenConnection.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql);) {
-            ps.setInt(9, customer.getCustomer_id());
+            ps.setInt(10, customer.getCustomer_id());
             ps.setString(1, customer.getFull_name());
             ps.setString(2, customer.getSsn());
             ps.setDate(3, Date.valueOf(customer.getDate_of_birth()));
@@ -92,6 +94,7 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
             ps.setString(6, customer.getAddress());
             ps.setInt(7, customer.getBuilding_id());
             ps.setString(8, customer.getNationality());
+            ps.setBoolean(9, customer.isIs_active());
             return ps.executeUpdate() > 0;
         }
         catch (Exception e) {
@@ -136,8 +139,9 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
                 String phone_number = rs.getString("phone_number");
                 String address = rs.getString("address");
                 String nationality = rs.getString("nationality");
+                Boolean is_active = rs.getBoolean("is_active");
                 
-                return new Customer(customer_id, full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality);
+                return new Customer(customer_id, full_name, ssn, date_of_birth, gender, phone_number, address, building_id, nationality, is_active);
             }
         }
         catch (Exception e) {
@@ -148,8 +152,8 @@ public class CustomerDAO implements InterfaceDAO<Customer> {
     
     public static void main(String[] args) {
         LocalDate dob = LocalDate.of(2004, 1, 1);
-        Customer Cus = new Customer("Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam");
-        Customer updateCus = new Customer(2, "Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "American");
+        Customer Cus = new Customer("Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam", true);
+        Customer updateCus = new Customer(2, "Vu Dinh Khoa", "010101010101", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "American", true);
 //        Customer Cus2 = new Customer(8, "Vu Dinh Khoa", "030303030303", dob, "M", "0303030303", "97 Man Thien - TP HCM", 1 , "VietNam");
 //        Customer upCus  = new Customer(3, "Vu Dinh Khoa", "030303030303", dob, "M", "0202020202", "97 Man Thien - TP HCM", 1 , "VietNam");
         CustomerDAO cusDao = CustomerDAO.getInstance();

@@ -4,10 +4,14 @@
  */
 package Library;
 
+import Model.ShiftTypes;
+import Model.TimeFrame;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Locale;
 
 /**
@@ -57,6 +61,35 @@ public class Library {
         }
     }
 
+    // Check TimeFrame
+    public static boolean TimeFrameValidator(ArrayList<TimeFrame> lstTimeFrame){
+        lstTimeFrame.sort(Comparator.comparing(t -> t.getTime_start()));
+        
+        for (int i = 1; i < lstTimeFrame.size(); i++) {
+                TimeFrame prev = lstTimeFrame.get(i - 1);
+                TimeFrame current = lstTimeFrame.get(i);
+                
+                if (current.getTime_start().isBefore(prev.getTime_end())) {
+                    return false;
+                }
+            }    
+        return true;
+    } 
+    
+    // Check Time of ShiftType
+    public static boolean TimeShiftTypeValidator(ArrayList<ShiftTypes> lstShiftType){
+        lstShiftType.sort(Comparator.comparing(t -> t.getStart_time()));
+        
+        for (int i = 1; i < lstShiftType.size(); i++) {
+                ShiftTypes prev = lstShiftType.get(i - 1);
+                ShiftTypes current = lstShiftType.get(i);
+                
+                if (current.getStart_time().isBefore(prev.getStart_end())) {
+                    return false;
+                }
+            }    
+        return true;
+    } 
     
     public static void main(String[] args) {
         
