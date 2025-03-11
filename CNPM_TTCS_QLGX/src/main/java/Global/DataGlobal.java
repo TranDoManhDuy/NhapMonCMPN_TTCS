@@ -11,16 +11,19 @@ import Model.Customer;
 import Model.Regisatration;
 import Model.Vehicle;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 /**
  *
  * @author manhh
  */
 public class DataGlobal {
-
+    private JFrame viewmain;
     private ArrayList<Regisatration> arrRegistration = new ArrayList<>();
     private ArrayList<Customer> arrCustomer = new ArrayList<>();
     private ArrayList<Vehicle> arrVehicle = new ArrayList<>();
+    
+    public DataGlobal() {}
     
     public ArrayList<Regisatration> getArrayRegistration() {
         return arrRegistration;

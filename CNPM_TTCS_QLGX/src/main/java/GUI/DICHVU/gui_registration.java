@@ -1,15 +1,22 @@
 package GUI.DICHVU;
+import Annotation.LogConfirm;
+import Annotation.LogMessage;
 import DAO.CustomerDAO;
 import DAO.RegisatrationDAO;
 import DAO.VehicleDAO;
+import GUI.ViewMain;
 import Global.DataGlobal;
 import Model.Customer;
 import Model.Regisatration;
 import Model.Vehicle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -24,10 +31,12 @@ import javax.swing.table.DefaultTableModel;
 public class gui_registration extends javax.swing.JPanel {
     private DataGlobal dataGlobal;
     private DefaultTableModel tableModel;
+    private ViewMain viewmain;
     /**
      * Creates new form registration
      */
-    public gui_registration(DataGlobal dataGlobal) {
+    public gui_registration(DataGlobal dataGlobal, ViewMain viewmain) {
+        this.viewmain = viewmain;
         this.dataGlobal = dataGlobal;
         initComponents();
         comboTrangthai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Còn thời hạn", "Hết thời hạn" , "..."}));
@@ -209,6 +218,11 @@ public class gui_registration extends javax.swing.JPanel {
         inforDetail.setText("Thông tin chi tiết");
 
         btn_xem_pt.setText("Chọn");
+        btn_xem_pt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xem_ptActionPerformed(evt);
+            }
+        });
 
         txt_ngaydangki.setEnabled(false);
 
@@ -232,6 +246,11 @@ public class gui_registration extends javax.swing.JPanel {
         txt_id_khachhang.setEnabled(false);
 
         btnXem_khachhang.setText("Chọn");
+        btnXem_khachhang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXem_khachhangActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -399,6 +418,73 @@ public class gui_registration extends javax.swing.JPanel {
             return;
         }
     }//GEN-LAST:event_btn_addActionPerformed
+
+    private void btnXem_khachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXem_khachhangActionPerformed
+        // TODO add your handling code here:
+        
+        // vo hieu hoa 
+        this.viewmain.setEnabled(false);
+        
+        // ghi đè cho các phím xác nhận
+        LogMessage logmessage = new LogMessage("Không thể xóa") {
+            @Override
+            public void action() {
+                System.out.println("Tat thong bao");
+                this.setVisible(false);
+                viewmain.setEnabled(true);
+                viewmain.requestFocus();
+            }
+        };
+        logmessage.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        // chặn đóng cửa sổ
+        logmessage.addWindowListener(new WindowAdapter() {
+        @Override
+        public void windowClosing(WindowEvent e) {
+//            JOptionPane.showMessageDialog(null, "Bạn không thể đóng cửa sổ này!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+        }
+        });
+        // hien cua so thong bao
+        logmessage.setLocationRelativeTo(null);
+        logmessage.setVisible(true);
+    }//GEN-LAST:event_btnXem_khachhangActionPerformed
+
+    private void btn_xem_ptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xem_ptActionPerformed
+        // TODO add your handling code here:
+        // init log confirm
+        
+        // Khống chế viewmain
+        this.viewmain.setEnabled(false);
+        
+        // ghi đè cho các phím xác nhận
+        LogConfirm logconfirm = new LogConfirm( "Cảnh báo cảnh báo") {
+            @Override
+            public void action() {
+                System.out.println("DO SOMETHING");
+                this.setVisible(false);
+                viewmain.setEnabled(true);
+                viewmain.requestFocus();
+            }
+            @Override
+            public void reject() {
+                System.out.println("Huy bo thao tac");
+                this.setVisible(false);
+                viewmain.setEnabled(true);
+                viewmain.requestFocus();
+            }
+        };
+        logconfirm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        // chặn đóng cửa sổ
+        logconfirm.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+    //            JOptionPane.showMessageDialog(null, "Bạn không thể đóng cửa sổ này!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        
+        // hiện log xác nhận
+        logconfirm.setLocationRelativeTo(null);
+        logconfirm.setVisible(true);
+    }//GEN-LAST:event_btn_xem_ptActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

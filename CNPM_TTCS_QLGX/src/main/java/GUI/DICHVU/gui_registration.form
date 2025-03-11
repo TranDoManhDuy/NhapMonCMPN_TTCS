@@ -285,6 +285,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xem_ptActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_ngaydangki">
           <Properties>
@@ -332,6 +335,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXem_khachhangActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

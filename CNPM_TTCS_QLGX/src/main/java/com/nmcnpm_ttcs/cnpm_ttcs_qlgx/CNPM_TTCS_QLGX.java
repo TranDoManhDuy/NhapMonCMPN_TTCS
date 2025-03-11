@@ -14,8 +14,5 @@ public class CNPM_TTCS_QLGX {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        ViewMain a = new ViewMain();
-        a.setVisible(true);
-        a.setLocationRelativeTo(null);
     }
 }
