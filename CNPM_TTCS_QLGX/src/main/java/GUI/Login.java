@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import Global.DataGlobal;
+import javax.swing.JFrame;
+
 /**
  *
  * @author manhh
@@ -37,7 +40,16 @@ public class Login extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public static void main(String[] args) {
+        Global.DataGlobal dataGlobal = new DataGlobal();
+        dataGlobal.updateAllData();
+        
+        ViewMain a = new  ViewMain(dataGlobal);
+        
+        a.setLocationRelativeTo(null);
+        a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        a.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

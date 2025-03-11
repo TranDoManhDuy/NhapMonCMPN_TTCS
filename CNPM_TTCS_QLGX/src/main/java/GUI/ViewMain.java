@@ -5,14 +5,17 @@
 package GUI;
 
 import GUI.DICHVU.gui_registration;
+import Global.DataGlobal;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.JPanel;
 
 /**
  *
  * @author manhh
  */
 public class ViewMain extends javax.swing.JFrame {
+    private DataGlobal dataGlobal;
     /**
      * Creates new form ViewMain
      */
@@ -20,14 +23,31 @@ public class ViewMain extends javax.swing.JFrame {
         initComponents();
         GUI_DICHVU();
     }
-    public void GUI_DICHVU() {
-        NhanSu.setLayout(new GridBagLayout());
+    public ViewMain(DataGlobal dataGlobal) {
+        this.dataGlobal = dataGlobal;
+        
+        initComponents();
+        GUI_DICHVU();
+    }
+    public void addComponent(JPanel father, JPanel child) {
+        father.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
-        gui_registration a = new gui_registration();
-        NhanSu.add(a , gbc);
+        father.add(child, gbc);
+    }
+    public void GUI_DICHVU() {
+        // init component
+        gui_registration registration = new gui_registration(this.dataGlobal);
+        
+        // add component
+        if (Global.Global_variable.role_name == "staff") {
+            addComponent(panel_dangki, registration);
+        }
+        else {
+            
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +66,16 @@ public class ViewMain extends javax.swing.JFrame {
         CaTruc = new javax.swing.JPanel();
         GuiXe = new javax.swing.JPanel();
         DichVu = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        panelDichVu = new javax.swing.JTabbedPane();
+        panel_dangki = new javax.swing.JPanel();
+        panel_thanhtoan = new javax.swing.JPanel();
+        panel_loaidichvu = new javax.swing.JPanel();
+        panel_giadichvuThang = new javax.swing.JPanel();
+        panel_gialuot = new javax.swing.JPanel();
+        panel_loaiphuongtien = new javax.swing.JPanel();
+        panel_khungthoigian = new javax.swing.JPanel();
+        panel_thongkedoanhthu = new javax.swing.JPanel();
         ThongKe = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,15 +130,130 @@ public class ViewMain extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Gửi Xe", GuiXe);
 
+        javax.swing.GroupLayout panel_dangkiLayout = new javax.swing.GroupLayout(panel_dangki);
+        panel_dangki.setLayout(panel_dangkiLayout);
+        panel_dangkiLayout.setHorizontalGroup(
+            panel_dangkiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_dangkiLayout.setVerticalGroup(
+            panel_dangkiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Đăng kí", panel_dangki);
+
+        javax.swing.GroupLayout panel_thanhtoanLayout = new javax.swing.GroupLayout(panel_thanhtoan);
+        panel_thanhtoan.setLayout(panel_thanhtoanLayout);
+        panel_thanhtoanLayout.setHorizontalGroup(
+            panel_thanhtoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_thanhtoanLayout.setVerticalGroup(
+            panel_thanhtoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Thanh toán", panel_thanhtoan);
+
+        javax.swing.GroupLayout panel_loaidichvuLayout = new javax.swing.GroupLayout(panel_loaidichvu);
+        panel_loaidichvu.setLayout(panel_loaidichvuLayout);
+        panel_loaidichvuLayout.setHorizontalGroup(
+            panel_loaidichvuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_loaidichvuLayout.setVerticalGroup(
+            panel_loaidichvuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Loại dịch vụ", panel_loaidichvu);
+
+        javax.swing.GroupLayout panel_giadichvuThangLayout = new javax.swing.GroupLayout(panel_giadichvuThang);
+        panel_giadichvuThang.setLayout(panel_giadichvuThangLayout);
+        panel_giadichvuThangLayout.setHorizontalGroup(
+            panel_giadichvuThangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_giadichvuThangLayout.setVerticalGroup(
+            panel_giadichvuThangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Giá dịch vụ theo tháng", panel_giadichvuThang);
+
+        javax.swing.GroupLayout panel_gialuotLayout = new javax.swing.GroupLayout(panel_gialuot);
+        panel_gialuot.setLayout(panel_gialuotLayout);
+        panel_gialuotLayout.setHorizontalGroup(
+            panel_gialuotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_gialuotLayout.setVerticalGroup(
+            panel_gialuotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Giá lượt", panel_gialuot);
+
+        javax.swing.GroupLayout panel_loaiphuongtienLayout = new javax.swing.GroupLayout(panel_loaiphuongtien);
+        panel_loaiphuongtien.setLayout(panel_loaiphuongtienLayout);
+        panel_loaiphuongtienLayout.setHorizontalGroup(
+            panel_loaiphuongtienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_loaiphuongtienLayout.setVerticalGroup(
+            panel_loaiphuongtienLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Các loại phương tiện", panel_loaiphuongtien);
+
+        javax.swing.GroupLayout panel_khungthoigianLayout = new javax.swing.GroupLayout(panel_khungthoigian);
+        panel_khungthoigian.setLayout(panel_khungthoigianLayout);
+        panel_khungthoigianLayout.setHorizontalGroup(
+            panel_khungthoigianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_khungthoigianLayout.setVerticalGroup(
+            panel_khungthoigianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Các khung thời gian", panel_khungthoigian);
+
+        javax.swing.GroupLayout panel_thongkedoanhthuLayout = new javax.swing.GroupLayout(panel_thongkedoanhthu);
+        panel_thongkedoanhthu.setLayout(panel_thongkedoanhthuLayout);
+        panel_thongkedoanhthuLayout.setHorizontalGroup(
+            panel_thongkedoanhthuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panel_thongkedoanhthuLayout.setVerticalGroup(
+            panel_thongkedoanhthuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+
+        panelDichVu.addTab("Thống kê doanh thu", panel_thongkedoanhthu);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDichVu, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelDichVu)
+        );
+
         javax.swing.GroupLayout DichVuLayout = new javax.swing.GroupLayout(DichVu);
         DichVu.setLayout(DichVuLayout);
         DichVuLayout.setHorizontalGroup(
             DichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         DichVuLayout.setVerticalGroup(
             DichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Dịch Vụ", DichVu);
@@ -135,7 +280,7 @@ public class ViewMain extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -217,6 +362,16 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane panelDichVu;
+    private javax.swing.JPanel panel_dangki;
+    private javax.swing.JPanel panel_giadichvuThang;
+    private javax.swing.JPanel panel_gialuot;
+    private javax.swing.JPanel panel_khungthoigian;
+    private javax.swing.JPanel panel_loaidichvu;
+    private javax.swing.JPanel panel_loaiphuongtien;
+    private javax.swing.JPanel panel_thanhtoan;
+    private javax.swing.JPanel panel_thongkedoanhthu;
     // End of variables declaration//GEN-END:variables
 }

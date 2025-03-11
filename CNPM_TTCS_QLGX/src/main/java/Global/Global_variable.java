@@ -9,5 +9,5 @@ package Global;
  * @author manhh
  */
 public class Global_variable {
-    public static String role_name; 
+    public static String role_name = "staff";  // manager
 }

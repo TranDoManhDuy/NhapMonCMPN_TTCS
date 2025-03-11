@@ -21,7 +21,15 @@ import java.util.Locale;
 public class Library {
     // Ten chi gom a - z, A - Z
     public static boolean isValidString(String str) {
-        return str.matches("[a-zA-Z ]+");
+        if (str == null || str.isEmpty()) {
+            return false; // Chuỗi rỗng hoặc null thì không hợp lệ
+        }
+        for (int i = 0; i <= str.length() - 1; ++i) {
+            if (!Character.isLetter(str.charAt(i)) && str.charAt(i) != ' ') {
+                return false; // Nếu có ký tự không phải chữ cái, trả về false
+            }
+        }
+        return true;
     }
     
     // email validate
