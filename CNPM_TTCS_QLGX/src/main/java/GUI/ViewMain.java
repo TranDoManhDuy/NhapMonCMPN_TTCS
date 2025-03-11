@@ -44,6 +44,11 @@ public class ViewMain extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         NhanSu = new javax.swing.JPanel();
         CaTruc = new javax.swing.JPanel();
+        panelCaTruc = new javax.swing.JPanel();
+        tabbedPaneCatruc = new javax.swing.JTabbedPane();
+        panelShiftType = new javax.swing.JPanel();
+        PanelShiftWork = new javax.swing.JPanel();
+        panelTask = new javax.swing.JPanel();
         GuiXe = new javax.swing.JPanel();
         DichVu = new javax.swing.JPanel();
         ThongKe = new javax.swing.JPanel();
@@ -65,24 +70,86 @@ public class ViewMain extends javax.swing.JFrame {
         NhanSu.setLayout(NhanSuLayout);
         NhanSuLayout.setHorizontalGroup(
             NhanSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addGap(0, 2424, Short.MAX_VALUE)
         );
         NhanSuLayout.setVerticalGroup(
             NhanSuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Nhân Sự", NhanSu);
+
+        panelCaTruc.setPreferredSize(new java.awt.Dimension(1203, 488));
+
+        javax.swing.GroupLayout panelCaTrucLayout = new javax.swing.GroupLayout(panelCaTruc);
+        panelCaTruc.setLayout(panelCaTrucLayout);
+        panelCaTrucLayout.setHorizontalGroup(
+            panelCaTrucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panelCaTrucLayout.setVerticalGroup(
+            panelCaTrucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 488, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelShiftTypeLayout = new javax.swing.GroupLayout(panelShiftType);
+        panelShiftType.setLayout(panelShiftTypeLayout);
+        panelShiftTypeLayout.setHorizontalGroup(
+            panelShiftTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panelShiftTypeLayout.setVerticalGroup(
+            panelShiftTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 432, Short.MAX_VALUE)
+        );
+
+        tabbedPaneCatruc.addTab("Loại ca trực", panelShiftType);
+
+        javax.swing.GroupLayout PanelShiftWorkLayout = new javax.swing.GroupLayout(PanelShiftWork);
+        PanelShiftWork.setLayout(PanelShiftWorkLayout);
+        PanelShiftWorkLayout.setHorizontalGroup(
+            PanelShiftWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        PanelShiftWorkLayout.setVerticalGroup(
+            PanelShiftWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 432, Short.MAX_VALUE)
+        );
+
+        tabbedPaneCatruc.addTab("Ca trực", PanelShiftWork);
+
+        javax.swing.GroupLayout panelTaskLayout = new javax.swing.GroupLayout(panelTask);
+        panelTask.setLayout(panelTaskLayout);
+        panelTaskLayout.setHorizontalGroup(
+            panelTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1203, Short.MAX_VALUE)
+        );
+        panelTaskLayout.setVerticalGroup(
+            panelTaskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 432, Short.MAX_VALUE)
+        );
+
+        tabbedPaneCatruc.addTab("Nhiệm vụ", panelTask);
 
         javax.swing.GroupLayout CaTrucLayout = new javax.swing.GroupLayout(CaTruc);
         CaTruc.setLayout(CaTrucLayout);
         CaTrucLayout.setHorizontalGroup(
             CaTrucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addGroup(CaTrucLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tabbedPaneCatruc, javax.swing.GroupLayout.PREFERRED_SIZE, 1203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCaTruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CaTrucLayout.setVerticalGroup(
             CaTrucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGroup(CaTrucLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(CaTrucLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCaTruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tabbedPaneCatruc, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ca Trực", CaTruc);
@@ -91,11 +158,11 @@ public class ViewMain extends javax.swing.JFrame {
         GuiXe.setLayout(GuiXeLayout);
         GuiXeLayout.setHorizontalGroup(
             GuiXeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addGap(0, 2424, Short.MAX_VALUE)
         );
         GuiXeLayout.setVerticalGroup(
             GuiXeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Gửi Xe", GuiXe);
@@ -104,11 +171,11 @@ public class ViewMain extends javax.swing.JFrame {
         DichVu.setLayout(DichVuLayout);
         DichVuLayout.setHorizontalGroup(
             DichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addGap(0, 2424, Short.MAX_VALUE)
         );
         DichVuLayout.setVerticalGroup(
             DichVuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Dịch Vụ", DichVu);
@@ -117,11 +184,11 @@ public class ViewMain extends javax.swing.JFrame {
         ThongKe.setLayout(ThongKeLayout);
         ThongKeLayout.setHorizontalGroup(
             ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1203, Short.MAX_VALUE)
+            .addGap(0, 2424, Short.MAX_VALUE)
         );
         ThongKeLayout.setVerticalGroup(
             ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Thống Kê", ThongKe);
@@ -135,7 +202,7 @@ public class ViewMain extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -146,14 +213,14 @@ public class ViewMain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -213,10 +280,15 @@ public class ViewMain extends javax.swing.JFrame {
     private javax.swing.JPanel DichVu;
     private javax.swing.JPanel GuiXe;
     private javax.swing.JPanel NhanSu;
+    private javax.swing.JPanel PanelShiftWork;
     private javax.swing.JPanel ThongKe;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel panelCaTruc;
+    private javax.swing.JPanel panelShiftType;
+    private javax.swing.JPanel panelTask;
+    private javax.swing.JTabbedPane tabbedPaneCatruc;
     // End of variables declaration//GEN-END:variables
 }
